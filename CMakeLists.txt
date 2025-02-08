@@ -11,7 +11,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-set(MAYA_LOCATION "C:\\Program Files\\Autodesk\\Maya2024")
+set(MAYA_LOCATION "C:\\Program Files\\Autodesk\\Maya2023")
 
 if (NOT EXISTS "${MAYA_LOCATION}")
   message(FATAL_ERROR "Maya not found at ${MAYA_LOCATION}, please set MAYA_LOCATION to the correct path!!!")
@@ -36,7 +36,8 @@ set_property(SOURCE src/LSystem.i PROPERTY CPLUSPLUS ON)
 swig_add_library(LSystem
   TYPE MODULE
   LANGUAGE python
-  SOURCES src/LSystem.i src/LSystem.cpp src/vec.cpp)
+  SOURCES src/LSystem.i src/LSystem.cpp src/vec.cpp
+)
 
 add_custom_command(TARGET LSystem POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

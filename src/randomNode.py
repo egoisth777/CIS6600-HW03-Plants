@@ -61,7 +61,7 @@ def nodeInitializer():
     try:
         # TODO:: add the attributes to the node and set up the
         #         attributeAffects (addAttribute, and attributeAffects)
-        print "Initialization!\n"
+        print("Initialization!\n")
 
     except:
         sys.stderr.write( ("Failed to create attributes of %s node\n", kPluginNodeTypeName) )
