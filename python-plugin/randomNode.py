@@ -11,8 +11,9 @@ import maya.OpenMayaMPx as OpenMayaMPx
 import maya.cmds as cmds
 import inspect
 
+import inspect
+import sys
 try:
-    # This lambda is defined in the current file; get its source file path.
     plugin_path = os.path.abspath(inspect.getsourcefile(lambda: 0))
     plugin_dir = os.path.dirname(plugin_path)
     OpenMaya.MGlobal.displayInfo("Plugin directory: " + plugin_dir)
@@ -22,8 +23,6 @@ except Exception as e:
 
 if plugin_dir not in sys.path:
     sys.path.insert(0, plugin_dir)
-
-# OpenMaya.MGlobal.displayInfo(f"path:{plugin_dir}")
 
 # Useful functions for declaring attributes as inputs or outputs.
 def MAKE_INPUT(attr):
@@ -146,14 +145,6 @@ def initializePlugin(mobject):
         mplugin.registerNode( kPluginNodeTypeName, randomNodeId, nodeCreator, nodeInitializer )
     except Exception as e:
         sys.stderr.write( "Failed to register node: %s\n" % kPluginNodeTypeName )
-        raise e
-    # Automatically load the GUI after the plugin is registered
-    try:
-        # Ensure that the randomNodeUI.py file is in your PYTHONPATH or the same folder as this file
-        from RandomNodeUI import showRandomNodeUI
-        showRandomNodeUI()
-    except Exception as e:
-        sys.stderr.write( "Failed to load GUI: %s\n" % kPluginNodeTypeName )
         raise e
 
 # uninitialize the script plug-in

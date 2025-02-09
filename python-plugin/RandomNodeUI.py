@@ -212,5 +212,3 @@ def showRandomNodeUI():
     randomNodeDialog = RandomNodeUI()
     randomNodeDialog.show()
 
-# To launch the UI, simply run:
-showRandomNodeUI()

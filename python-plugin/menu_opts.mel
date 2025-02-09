@@ -9,19 +9,8 @@ global proc opt0()
 
 global proc opt1()
 {
-    string $obj_selected[] = `ls -sl`;
-    if (size($obj_selected) == 1)
-    {
-        $selected = $obj_selected[0];
-        instancer;
-        createNode randomNode;
-        connectAttr ($selected + ".matrix") instancer1.inputHierarchy[0];
-        connectAttr randomNode1.outPoints instancer1.inputPoints;
-    }
-    else
-    {
-        print "Should select 1 objects\n";
-    }
+    // Launch the Python GUI
+    python("from RandomNodeUI import showRandomNodeUI; showRandomNodeUI()");
 }
 
 global proc opt2()
@@ -56,12 +45,12 @@ global proc opt3()
     {
         print "Should select 2 objects\n";
     }
-
 }
 
 global string $gMainWindow;
-setParent $gMainWindow;
-menu -label "LSystemInstance" -p $gMainWindow -tearOff true;
+// Create the menu with a unique name (LSystemInstanceMenu) and label "LSystemInstance"
+$gLSystemInstanceMenu = `menu -parent $gMainWindow -label "LSystemInstance" -tearOff true LSystemInstanceMenu`;
+
 menuItem -label "Create a randomNode network with spheres" -command ("opt0");
 menuItem -label "Create a randomNode network with one selected geom" -command ("opt1");
 menuItem -label "Create a LSystem network with cubes and spheres" -command ("opt2");
