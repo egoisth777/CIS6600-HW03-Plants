@@ -217,6 +217,20 @@ void LSystem::processPy(unsigned int n,
     std::vector<Geometry> preFlowers;
 
 	process(n, preBranches, preFlowers);
+    // converting to python compatible data-structure
+    for (auto branch : preBranches)
+    {
+        vec3 start_pos =  branch.first;
+        vec3 end_pos =  branch.second;
+        branches.push_back({static_cast<float>(start_pos[0]), static_cast<float>(start_pos[1]), static_cast<float>(start_pos[2]),
+            static_cast<float>(end_pos[0]), static_cast<float>(end_pos[1]), static_cast<float>(end_pos[2])
+        });
+    }
+    for (auto flower : preFlowers)
+    {
+        vec3 pos = flower.first;
+        flowers.push_back({static_cast<float>(pos[0]), static_cast<float>(pos[1]), static_cast<float>(pos[2])});
+    }
 }
 
 // LOOK: This is where the L-System creates the branches and the flowers.

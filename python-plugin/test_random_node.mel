@@ -1,0 +1,4 @@
+polySphere; instancer;
+createNode randomNode;
+connectAttr pCube1.matrix instancer1.inputHierarchy[0];
+connectAttr randomNode1.outPoints instancer1.inputPoints;

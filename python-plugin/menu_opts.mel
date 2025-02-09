@@ -1,0 +1,68 @@
+global proc opt0()
+{
+    polySphere;
+	instancer;
+	createNode randomNode;
+	connectAttr pSphere1.matrix instancer1.inputHierarchy[0];
+	connectAttr randomNode1.outPoints instancer1.inputPoints;
+}
+
+global proc opt1()
+{
+    string $obj_selected[] = `ls -sl`;
+    if (size($obj_selected) == 1)
+    {
+        $selected = $obj_selected[0];
+        instancer;
+        createNode randomNode;
+        connectAttr ($selected + ".matrix") instancer1.inputHierarchy[0];
+        connectAttr randomNode1.outPoints instancer1.inputPoints;
+    }
+    else
+    {
+        print "Should select 1 objects\n";
+    }
+}
+
+global proc opt2()
+{
+    polySphere;
+	polyCube;
+	instancer;
+	instancer;
+	createNode LSystemInstancerNode;
+	connectAttr pCube1.matrix instancer1.inputHierarchy[0];
+	connectAttr LSystemInstancerNode1.outBranches instancer1.inputPoints;
+	connectAttr pSphere1.matrix instancer2.inputHierarchy[0];
+	connectAttr LSystemInstancerNode1.outFlowers instancer2.inputPoints;
+}
+
+global proc opt3()
+{
+    string $obj_selected[] = `ls -sl`;
+    if (size($obj_selected) == 2)
+    {
+        $brch = $obj_selected[0];
+	    $flwr = $obj_selected[1];
+        instancer;
+        instancer;
+        createNode LSystemInstancerNode;
+        connectAttr ($brch + ".matrix") instancer1.inputHierarchy[0];
+        connectAttr LSystemInstancerNode1.outBranches instancer1.inputPoints;
+        connectAttr ($flwr+".matrix") instancer2.inputHierarchy[0];
+        connectAttr LSystemInstancerNode1.outFlowers instancer2.inputPoints;
+    }
+    else
+    {
+        print "Should select 2 objects\n";
+    }
+
+}
+
+global string $gMainWindow;
+setParent $gMainWindow;
+menu -label "LSystemInstance" -p $gMainWindow -tearOff true;
+menuItem -label "Create a randomNode network with spheres" -command ("opt0");
+menuItem -label "Create a randomNode network with one selected geom" -command ("opt1");
+menuItem -label "Create a LSystem network with cubes and spheres" -command ("opt2");
+menuItem -label "Create a LSystem network with two selected geoms" -command ("opt3");
